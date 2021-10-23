@@ -1,80 +1,81 @@
-import React from 'react';
-import { default as BootstrapTable } from 'react-bootstrap/Table'
+import React from "react";
+import { default as BootstrapTable } from "react-bootstrap/Table";
 
 const Table = (props) => {
+  const { header, row, paymentTerms } = props;
 
-    const { header, row , paymentTerms } = props;
-
-    console.log(props);
-    console.log(row)
-    const RenderHeader = () => {
-        return (
-            Object.values(header).map((item, i) => (
-                <th>{item}</th>
-            ))
-        )
-    }
-
-
-    const RenderBody = () => {
-        return (
-            row.map((item, i) => {
-                return (
-                    <tr>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td className="font-weight-bold">Account Name</td>
-                                    <td>{item.fromAccount.accountName}</td>
-                                </tr>
-                                <tr>
-                                    <td className="font-weight-bold">Sort Code</td>  
-                                    <td>{item.fromAccount.sortCode}</td>
-                                </tr>
-                                <tr>
-                                    <td className="font-weight-bold">Account Number</td>
-                                    <td>{item.fromAccount.accountNumber}</td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td>{item.paymentAmount}</td>
-                        <td>{item.paymentCurrency}</td>
-                        <td>{item.paymentDate}</td>
-                        <td>{paymentTerms[item.paymentStatus]}</td>
-                        <td>{item.paymentType}</td>
-                        <td>
-                        <table>
-                                <tr>
-                                    <td className="font-weight-bold">Account Name</td>
-                                    <td>{item.toAccaunt.accountName}</td>
-                                </tr>
-                                <tr>
-                                    <td className="font-weight-bold">Sort Code</td>  
-                                    <td>{item.toAccaunt.sortCode}</td>
-                                </tr>
-                                <tr>
-                                    <td className="font-weight-bold">Account Number</td>
-                                    <td>{item.toAccaunt.accountNumber}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                )
-            })
-        )
-    }
+  const RenderHeader = () => {
     return (
-        <BootstrapTable bordered hover size="sm">
-            <thead>
+      <thead>
+        <tr>
+          {Object.values(header).map((item, i) => (
+            <th>{item}</th>
+          ))}
+        </tr>
+      </thead>
+    );
+  };
+
+  const RenderBody = () => {
+    return row.map((item, i) => {
+      const {
+        fromAccount,
+        toAccaunt,
+        paymentAmount,
+        paymentCurrency,
+        paymentDate,
+      } = item;
+      return (
+        <tbody>
+          <tr>
+            <td>
+              <table>
                 <tr>
-                    <RenderHeader />
+                  <td className="font-weight-bold">Account Name</td>
+                  <td>{fromAccount.accountName}</td>
                 </tr>
-            </thead>
-            <tbody>
-                <RenderBody />
-            </tbody>
-        </BootstrapTable>
-    )
-}
+                <tr>
+                  <td className="font-weight-bold">Sort Code</td>
+                  <td>{fromAccount.sortCode}</td>
+                </tr>
+                <tr>
+                  <td className="font-weight-bold">Account Number</td>
+                  <td>{fromAccount.accountNumber}</td>
+                </tr>
+              </table>
+            </td>
+            <td>{paymentAmount}</td>
+            <td>{paymentCurrency}</td>
+            <td>{paymentDate}</td>
+            <td>{paymentTerms[item.paymentStatus]}</td>
+            <td>{item.paymentType}</td>
+            <td>
+              <table>
+                <tr>
+                  <td className="font-weight-bold">Account Name</td>
+                  <td>{toAccaunt.accountName}</td>
+                </tr>
+                <tr>
+                  <td className="font-weight-bold">Sort Code</td>
+                  <td>{toAccaunt.sortCode}</td>
+                </tr>
+                <tr>
+                  <td className="font-weight-bold">Account Number</td>
+                  <td>{toAccaunt.accountNumber}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      );
+    });
+  };
+  return (
+    <BootstrapTable bordered hover size="sm">
+      <RenderHeader />
+      <RenderBody />
+    </BootstrapTable>
+  );
+};
 
 export default Table;

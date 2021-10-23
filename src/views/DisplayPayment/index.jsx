@@ -1,1 +1,1 @@
-export { default as DisplayPayment} from './DisplayPayment'
+export { default as DisplayPayment } from "./DisplayPayment";

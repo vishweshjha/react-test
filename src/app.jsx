@@ -1,9 +1,10 @@
 import React from "react";
+import { PaymentDataProvider } from "./utils/PaymentContext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./app.scss";
 
-import { DisplayPayment } from './views/DisplayPayment'
+import { DisplayPayment } from "./views/DisplayPayment";
 
 const App = () => {
   return (
@@ -12,10 +13,12 @@ const App = () => {
         <h5 className="my-0 mr-md-auto font-weight-normal">Natwest</h5>
       </div>
       <div className="container">
-        <DisplayPayment />
+        <PaymentDataProvider>
+          <DisplayPayment />
+        </PaymentDataProvider>
       </div>
     </>
-  )
+  );
 };
 
 export default App;
